@@ -1,0 +1,5 @@
+{
+  "status": "error",
+  "code": "pageSizeTooBig",
+  "message": "The maximum value of the pageSize param is 100 articles. You have requested 120."
+}

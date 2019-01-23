@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="30">
+
+    <Appenders>
+        <!-- podstawowa konsola do lokalnych testów -->
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %-5p [%c] %m%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="org.news.client.logger.LoggingRequestInterceptor" level="DEBUG" additivity="false">
+            <AppenderRef ref="STDOUT"/>
+        </Logger>
+        <Root level="INFO">
+            <AppenderRef ref="STDOUT"/>
+        </Root>
+    </Loggers>
+</Configuration>
