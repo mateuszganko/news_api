@@ -1,7 +1,9 @@
 package org.news.client.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -61,7 +63,9 @@ public final class TopHeadlineResponse extends BaseResponse {
         /**
          * The date and time that the article was published, in UTC (+000)
          */
-        private String publishedAt;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'hh:mm:ss", timezone = "UTC")
+        private Date publishedAt;
+
         /**
          * The unformatted content of the article, where available. This is truncated to 260 chars for Developer plan users.
          */

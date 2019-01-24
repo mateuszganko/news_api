@@ -1,6 +1,6 @@
 package org.news.client;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.news.client.dto.ErrorResponse;
 import org.news.client.dto.SourceResponse;
 import org.news.client.dto.TopHeadlineResponse;
@@ -17,8 +17,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
 
 public class NewsApiClientImpl implements NewsApiClient {
 
@@ -35,8 +33,8 @@ public class NewsApiClientImpl implements NewsApiClient {
     private final static String API_KEY_PARAM = "apiKey";
 
     private final NewsApiConfig config;
+    private final ObjectMapper mapper;
     private final RestTemplate restTemplate;
-    private final Gson gson;
 
     public NewsApiClientImpl(NewsApiConfig config){
         this(config, new RestTemplate());
@@ -46,7 +44,7 @@ public class NewsApiClientImpl implements NewsApiClient {
         validateConfig(config);
         this.config = config;
         this.restTemplate = restTemplate;
-        this.gson = new Gson();
+        this.mapper = new ObjectMapper();
         this.restTemplate.setErrorHandler(new ResponseErrorHandler());
         this.restTemplate.getInterceptors().add(new LoggingRequestInterceptor());
     }
@@ -114,8 +112,7 @@ public class NewsApiClientImpl implements NewsApiClient {
             log.error("Response error: {} {}", response.getStatusCode(), response.getStatusText());
 
             if(response.getStatusCode().series() == HttpStatus.Series.CLIENT_ERROR){
-                Reader reader = new InputStreamReader(response.getBody(), "UTF-8");
-                ErrorResponse errorResponse = gson.fromJson(reader, ErrorResponse.class);
+                ErrorResponse errorResponse = mapper.readValue(response.getBody(), ErrorResponse.class);
                 throw new NewsClientException(errorResponse.getCode(), errorResponse.getMessage());
             }else if(response.getStatusCode().series() == HttpStatus.Series.SERVER_ERROR){
                 throw new NewsClientException("serverError", "Unable download data from remote source");
