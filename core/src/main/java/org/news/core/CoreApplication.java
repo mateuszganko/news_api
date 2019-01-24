@@ -15,7 +15,7 @@ import java.util.Arrays;
 )
 public class CoreApplication {
 
-    private static Logger log = LoggerFactory.getLogger(CoreApplication.class);
+    private final static Logger log = LoggerFactory.getLogger(CoreApplication.class);
 
     public static void main(String[] args){
 
