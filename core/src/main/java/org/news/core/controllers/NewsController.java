@@ -1,5 +1,7 @@
 package org.news.core.controllers;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.news.client.NewsApiClient;
 import org.news.client.dto.TopHeadlineResponse;
 import org.news.core.converters.NewsConverter;
@@ -21,6 +23,7 @@ public class NewsController {
         this.newsConverter = newsConverter;
     }
 
+    @ApiOperation(value = "Retrive news by Country and Category ...")
     @GetMapping(value = "{country}/{category}")
     public NewsDto getNewsByCountryAndCategory(@PathVariable("country") String country,
                                                @PathVariable("category") String category,
