@@ -12,15 +12,24 @@ maven clean install
 
 
 maven clean install
+
 cd core
+
 docker build -t core .
+
 cd ui
+
 npm install
+
 docker build -t ui-image .
 
 Upewniamy się ze posiadamy dwa obrazy
+
 docker images
 
+
 odpalamy obrazy
+
 docker run -it -p 4200:4200 ui-image
+
 docker run -it -p 18080:18080 core
