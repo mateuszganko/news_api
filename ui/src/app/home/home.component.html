@@ -1,0 +1,27 @@
+<ul>
+
+  <div class="options">
+    <select [(ngModel)]="selectedCategory" (ngModelChange)='reloadNews()' id="category">
+      <option *ngFor="let item of categories" [value]="item">{{item}}</option>
+    </select>
+    <select [(ngModel)]="selectedCountry" (ngModelChange)='reloadNews()' id="country">
+      <option *ngFor="let item of countries" [value]="item">{{item}}</option>
+    </select>
+  </div>
+
+  <div class="list">
+    <table class="table">
+      <tbody>
+        <tr *ngFor="let article of news.articles">
+          <td>
+            <img src="{{article.imageUrl}}" style="max-height: 50px;"/>
+          </td>
+          <td>
+            <a href="{{article.articleUrl}}">{{ article.title }}</a>
+          </td>
+        </tr>
+      </tbody>
+      </table>
+  </div>
+</ul>
+
